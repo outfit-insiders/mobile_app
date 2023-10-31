@@ -13,9 +13,11 @@
    npm install --global expo-cli
    ```
 
-3. Download this repo
-4. Install deps on your template folder
-
+3. Clone this repo
+   ```
+   git clone https://github.com/outfit-insiders/mobile_app.git
+   ```  
+4. Install deps
    ```jsx
    npm install
    ```

@@ -22,7 +22,7 @@
    npm install
    ```
 
-5. Start the environtment
+5. Start
 
    ```jsx
    expo start
@@ -31,7 +31,7 @@
 <br />
 <br />
 
-# File Managements
+# File Management
 
 These are the folders and the functionality all in `src/`
 

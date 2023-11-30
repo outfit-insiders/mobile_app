@@ -6,7 +6,7 @@ import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
 
 import Home from "../screens/Home";
-import About from "../screens/About";
+import Camera from "../screens/Camera";
 import Profile from "../screens/Profile";
 
 const Tabs = createBottomTabNavigator();
@@ -48,14 +48,14 @@ const MainTabs = () => {
         }}
       />
       <Tabs.Screen
-        name="About"
-        component={About}
+        name="Camera"
+        component={Camera}
         options={{
           tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="About" />
+            <TabBarText focused={focused} title="Review" />
           ),
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={"ios-information-circle"} />
+            <TabBarIcon focused={focused} icon={"md-camera"} />
           ),
         }}
       />

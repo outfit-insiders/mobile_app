@@ -10,6 +10,8 @@ import {
 import { supabase } from "../../initSupabase";
 import { AuthStackParamList } from "../../types/navigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { showToast } from "../utils/Utilities";
 
 import {
   Layout,
@@ -42,6 +44,13 @@ export default function ({
       setLoading(false);
       alert(error.message);
     }
+    if (!error && user) {
+      setLoading(false);
+
+      // Save user object
+      AsyncStorage.setItem("user", JSON.stringify(user));
+      showToast("Login success");
+    }
   }
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -56,7 +65,7 @@ export default function ({
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: isDarkmode ? "#17171E" : themeColor.white100,
+              backgroundColor: isDarkmode ? "#17171E" : "#97d0ca",
             }}
           >
             <Image
@@ -93,7 +102,7 @@ export default function ({
               placeholder="Enter your email"
               value={email}
               autoCapitalize="none"
-              autoCompleteType="off"
+              // autoCompleteType="off"
               autoCorrect={false}
               keyboardType="email-address"
               onChangeText={(text) => setEmail(text)}
@@ -105,7 +114,7 @@ export default function ({
               placeholder="Enter your password"
               value={password}
               autoCapitalize="none"
-              autoCompleteType="off"
+              // autoCompleteType="off"
               autoCorrect={false}
               secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}

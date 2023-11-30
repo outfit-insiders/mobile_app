@@ -44,4 +44,11 @@ These are the folders and the functionality all in `src/`
 /src/types -> for Types
 ```
 
+
+### Todo
+[expo-async-share](https://docs.expo.dev/versions/latest/sdk/sharing/)
+https://shopify.github.io/flash-list/docs/usage
+https://stackoverflow.com/questions/52707002/how-to-snap-pictures-using-expo-react-native-camera
+
+
 - Aditya Chandraker (Main Developer)

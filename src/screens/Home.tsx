@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Linking } from "react-native";
+import { View, Linking, ScrollView, Image } from "react-native";
 import { MainStackParamList } from "../types/navigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { supabase } from "../initSupabase";
@@ -12,78 +12,42 @@ import {
   SectionContent,
   useTheme,
   themeColor,
+  SectionImage,
+  Avatar,
 } from "react-native-rapi-ui";
 import { Ionicons } from "@expo/vector-icons";
+import { FlashList } from "@shopify/flash-list";
+
 
 export default function ({
   navigation,
 }: NativeStackScreenProps<MainStackParamList, "MainTabs">) {
+
   const { isDarkmode, setTheme } = useTheme();
+  
+  const data = [
+    { key: '1', imageUrl: 'https://sothebys-com.brightspotcdn.com/74/34/543925cf4281ba9fe0b774e76c85/gettyimages-1316606580.jpg', content: 'This is a Section with an image' },
+    { key: '2', imageUrl: 'https://sothebys-com.brightspotcdn.com/74/34/543925cf4281ba9fe0b774e76c85/gettyimages-1316606580.jpg', content: 'This is a Section with an image' },
+    // Add more data as needed
+  ]; 
+
+  const Section = ({ imageUrl, content }) => (
+    <View style={{ flex: 1, margin: 10 }}>
+      <Image source={{ uri: imageUrl }} style={{ width: 100, height: 100, resizeMode: 'cover' }} />
+      <Text>{content}</Text>
+    </View>
+  );
+
+
   return (
-    <Layout>
-      <TopNav
-        middleContent="Home"
-        rightContent={
-          <Ionicons
-            name={isDarkmode ? "sunny" : "moon"}
-            size={20}
-            color={isDarkmode ? themeColor.white100 : themeColor.dark}
-          />
-        }
-        rightAction={() => {
-          if (isDarkmode) {
-            setTheme("light");
-          } else {
-            setTheme("dark");
-          }
-        }}
-      />
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Section style={{ marginTop: 20 }}>
-          <SectionContent>
-            <Text fontWeight="bold" style={{ textAlign: "center" }}>
-              These UI components provided by Rapi UI
-            </Text>
-            <Button
-              style={{ marginTop: 10 }}
-              text="Rapi UI Documentation"
-              status="info"
-              onPress={() => Linking.openURL("https://rapi-ui.kikiding.space/")}
-            />
-            <Button
-              text="Go to second screen"
-              onPress={() => {
-                navigation.navigate("SecondScreen");
-              }}
-              style={{
-                marginTop: 10,
-              }}
-            />
-            <Button
-              status="danger"
-              text="Logout"
-              onPress={async () => {
-                const { error } = await supabase.auth.signOut();
-                if (!error) {
-                  alert("Signed out!");
-                }
-                if (error) {
-                  alert(error.message);
-                }
-              }}
-              style={{
-                marginTop: 10,
-              }}
-            />
-          </SectionContent>
-        </Section>
-      </View>
+  <Layout>
+   <FlashList
+      data={data}
+      renderItem={({ item }) => <Section imageUrl={item.imageUrl} content={item.content} />}
+      keyExtractor={(item) => item.key}
+      estimatedItemSize={135}
+      numColumns={2} // Specify the number of columns
+    /> 
     </Layout>
   );
 }
